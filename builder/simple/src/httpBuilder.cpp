@@ -1,4 +1,5 @@
 #include "httpBuilder.h"
+#include <stdexcept>
 
 HttpBuilder::HttpBuilder()
 {
@@ -61,5 +62,10 @@ HttpBuilder &HttpBuilder::withUrl(const std::string url)
 
 HttpRequest &HttpBuilder::build()
 {
+    if (this->request->url.empty())
+    {
+        throw std::runtime_error("URL is required to build an HTTP request.");
+    }
+
     return *this->request;
 }
